@@ -22,10 +22,14 @@
     width: 500px;
 }
 
+#btnCalcular {
+    font-weight: bold;
+}
 #botao {
     font-weight: bold;
 }
 
-#var {
-    padding-left: 25px;
+
+#botao {
+    font-weight: bold;
 }
