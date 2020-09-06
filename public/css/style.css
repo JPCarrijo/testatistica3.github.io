@@ -6,7 +6,7 @@
     width: 500px;
 }
 
-#texto {
+#inputValues {
     width: 300px;
 }
 
@@ -22,14 +22,10 @@
     width: 500px;
 }
 
-#btnCalcular {
-    font-weight: bold;
-}
-#botao {
+#loadFile {
     font-weight: bold;
 }
 
-
-#botao {
-    font-weight: bold;
+#var {
+    padding-left: 25px;
 }
