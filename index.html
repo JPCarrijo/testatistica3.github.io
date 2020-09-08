@@ -22,7 +22,7 @@
         <p><input type="radio" name="radi"> POPULAÇÃO</p>
     </div>
     <div id="segunda">
-        <p>Nome da Variável <input type="text" id="varName"></p>
+        <p>Nome da Variável <input type="text" id="varNameInput"></p>
         <p><input type="radio" name="radi2" checked> VARIÁVEL QUALITATIVA NOMINAL</p>
         <P><input type="radio" name="radi2"> VARIÁVEL QUALITATIVA ORDINAL</P>
         <p><input type="radio" name="radi2"> VARIÁVEL QUANTITATIVA DISCRETA</p>
@@ -34,7 +34,13 @@
     </div>
 
     <table id="table">
-        
+        <tr>
+            <th id="varName"></th>
+            <th id="fi"></th>
+        </tr>
+        <tr id="results">
+
+        </tr>
     </table>
     <script src="./src/app.js"></script>
 </body>
