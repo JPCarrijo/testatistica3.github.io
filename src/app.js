@@ -69,7 +69,8 @@ function calcular() {
     let x = valuesToArray(count)
     console.log(x);
 
-    let y = removeDups(filteredArray)
+    let y = removeDups(filteredArray) 
+    
     console.log(y);
 
     /*if(varNameInput.value == ''){
