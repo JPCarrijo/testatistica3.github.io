@@ -1,0 +1,28 @@
+-index.html é carregado
+-usuário escolhe entre 3 opções: descritiva, probabilidade e correlação
+-Parte 1: Descritiva
+	Usuário escolhe digitar os valores:
+		-usuário digita valores dentro do inputbox separados por ponto e vírgula (;) para os valores a serem calculados.
+			Problemas:
+			-usuário usa outro símbolo que não (;). 
+		-usuário digita valor dentro do inputbox para o nome da variável
+		-usuário escolhe entre amostra e população
+		-usuário escolhe entre:
+			-qualitativa nominal
+                -não aceita número
+			-qualitativa ordinal
+				-input é mostrado para inserir a ordem que o usuário deseja separados por ponto e vírgula (;)
+				Problemas:
+				-usuário usa outro símbolo que não (;). 
+			-quantitativa discreta
+			-quantitativa contínua
+		-usuário clica no botão calcular
+			Problemas:
+			-usuário digitou os valores mas não escolheu o nome da variável. (Emitir alerta avisando e colocar focus na caixa de input).
+            -usuário digitou o nome da variável mas não escolheu os valores. (Emitir alerta avisando e colocar focus na caixa de input).
+            -os valores digitados precisam ser resetados ao clicar no botão Calcular.
+            -botão Calcular não pode gerar tabela sem dados ou com os mesmos dados presentes no input, porque quando clicado os valores não geram uma nova tabela, e sim agregam novos valores aos que já existiam.(quando clicado, o botão Calcular deve resetar todos os dados da tabela e pegar os novos digitados ou presentes no arquivo carregado)
+    Usuário escolhe digitar carregar um arquivo:
+        -uma janela é aberta para escolha do arquivo. Somente arquivos csv são aceitos.
+            Problemas: papa parse não reconhece caracteres acentuados. Única solução encontrada foi usar arquivos salvos com extensão (csv separados por vírgula UTF - 8). É necessário encontrar uma solução para o caso de o arquivo seja apenas da extensão (csv separado por vírgula)
+        
