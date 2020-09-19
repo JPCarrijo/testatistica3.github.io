@@ -7,7 +7,7 @@
 }
 
 #inputValues {
-    width: 300px;
+    width: 400px;
 }
 
 #texto2 {
@@ -28,4 +28,25 @@
 
 #var {
     padding-left: 25px;
+}
+
+.links{
+    font-size: 40px;
+    margin-right: 15px;
+}
+
+#ordemQltOrdinal {
+    display: none;
+    width: 300px;
+}
+
+table, tr,th,td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 25px;
+}
+
+#grafico{
+    width: 400px;
+    height: 400px;
 }
