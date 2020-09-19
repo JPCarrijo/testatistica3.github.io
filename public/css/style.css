@@ -40,3 +40,13 @@
     width: 300px;
 }
 
+table, tr,th,td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 25px;
+}
+
+#grafico{
+    width: 400px;
+    height: 400px;
+}

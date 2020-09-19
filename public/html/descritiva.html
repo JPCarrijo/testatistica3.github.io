@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
     <script src="../../src/js/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <title>Home</title>
 </head>
 
@@ -31,18 +32,41 @@
         <p><input type="radio" name="radi2" id="qtContinua"> VARIÁVEL QUANTITATIVA CONTÍNUA</P>
         <p><button id="btnCalcular">Calcular</button></p>
     </div>
-    
+
 
     <table id="table">
         <tr>
             <th id="varNameHeader"></th>
             <th id="fi"></th>
+            <th id="fr%"></th>
             <th id="fac"></th>
+            <th id="fac%"></th>
+        </tr>
+        <tr id="total">
+            <th id="totalInputs"></th>
         </tr>
     </table>
 
-   <script src="../../src/js/index.js"></script>
-   <script src="../../src/js/descritiva.js"></script>
+    <table id="table2">
+        <tr>
+            <th id="media"></th>
+            <th id="moda"></th>
+            <th id="mediana"></th>
+        </tr>
+        
+    </table>
+
+    <div id="grafico">
+        <canvas id="myChart" width="100" height="100"></canvas>
+    </div>
+    <script src="../../src/js/index.js"></script>
+    <script src="../../src/js/calculos.js"></script>
+    <script src="../../src/js/createHeader.js"></script>
+    <script src="../../src/js/tables.js"></script>
+    <script src="../../src/js/grafico.js"></script>
+    <script src="../../src/js/validacao.js"></script>
+    <script src="../../src/js/upload.js"></script>
+    <script src="../../src/js/descritiva.js"></script>
 </body>
 
 </html>
