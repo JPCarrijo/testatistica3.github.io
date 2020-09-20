@@ -8,6 +8,7 @@ function createHeader(obj) {
     let media = document.getElementById('media');
     let moda = document.getElementById('moda');
     let mediana = document.getElementById('mediana');
+    let totalValores = document.getElementById('totalValores');
 
     varNameHeader.innerHTML = obj.varName
     fi.innerText = 'fi'
@@ -18,4 +19,5 @@ function createHeader(obj) {
     media.innerText = 'Média';
     moda.innerText = 'Moda'
     mediana.innerText = 'Mediana';
+    totalValores.innerText = 'Total';
 };

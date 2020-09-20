@@ -25,31 +25,50 @@ function createTable(obj, total,fac) {
     }
 };
 
-function createTableContinua(arr, intervalo, linhas, arr2) {
+function createTableContinua(arr, intervalo, linhas, arr2,total,fac) {
     arr.sort(function (a, b) {
         return a - b;
     });
-    let x = arr[0]
+    let x = arr[0];
+    let y = 0
+    let totalFacPercent = 0;
     for (let i = 0; i < linhas; i++) {
         let row = table.insertRow();
         let cell = row.insertCell();
+        let text = document.createTextNode(`${x} |-- ${x + intervalo}`);
+        cell.appendChild(text)
+
         let count = 0
         for (let j = 0; j <= arr2.length; j++) {
             if (arr2[j] >= x && arr2[j] <= (x + (intervalo - 1))) {
                 count++
             }
         }
-     
+
         let cellfi = row.insertCell();
-        let text = document.createTextNode(`${x} |-- ${x + intervalo}`);
         let textfi = document.createTextNode(count);
-        cell.appendChild(text)
         cellfi.appendChild(textfi);
+
+        let formatedFr = (count / total) * 100
+        totalFacPercent += formatedFr;
+        let cellFrPercent = row.insertCell();
+        let textFrPercent = document.createTextNode(formatedFr);
+        cellFrPercent.appendChild(textFrPercent);
+
+        let cellFac = row.insertCell();
+        let textFac = document.createTextNode(fac[y]);
+        cellFac.appendChild(textFac);
+
+        let cellFacPercent = row.insertCell();
+        let textFacPercent = document.createTextNode(totalFacPercent.toFixed(2));
+        cellFacPercent.appendChild(textFacPercent);
+
+        y++
         x += intervalo
     }
 };
 
-function createTable2(media, moda, mediana){
+function createTable2(media, moda, mediana, total){
     let row = table2.insertRow();
     let cellMedia = row.insertCell();
     let textMedia = document.createTextNode(media);
@@ -60,4 +79,7 @@ function createTable2(media, moda, mediana){
     let cellMediana = row.insertCell();
     let textMediana = document.createTextNode(mediana);
     cellMediana.appendChild(textMediana);
+    let cellTotal = row.insertCell();
+    let textTotal = document.createTextNode(total);
+    cellTotal.appendChild(textTotal);
 };

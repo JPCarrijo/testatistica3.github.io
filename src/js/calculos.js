@@ -14,10 +14,7 @@ function calculateMediaDiscreta(obj, total) {
         soma += y[i] * objValues[i]
     }
     let media = Math.round(soma / total)
-    console.log(soma);
-    console.log(y);
-    console.log(objValues);
-    console.log(media);
+    
     return media
 }
 
@@ -25,7 +22,6 @@ function calculateMediaDiscreta(obj, total) {
 function calculateModa(obj) {
     let result = 0;
     let temp = '';
-    let z = 0
     let objKeys = Object.keys(obj);
     let objValues = Object.values(obj);
     for (let i = 0; i < objValues.length; i++) {
@@ -40,7 +36,6 @@ function calculateModa(obj) {
             }
         }
     }
-    
     return temp;
 };
 
@@ -69,31 +64,10 @@ function calculateMediana(total, fac, obj){
             }
         }
     }
-    
-    
-    
 };
 
 
-function calculateContinua(arr, prop) {
-    let result = {};
-    arr.sort(function (a, b) {
-        return a - b;
-    });
-    console.log(arr);
-    //cálculo da amplitude
-    result.amplitude = arr[arr.length - 1] - arr[0]//referência
-    console.log(result.amplitude);
-    //linhas
-    result.linhas = Math.round(Math.sqrt(prop))
-    console.log('linhas');
-    console.log(result.linhas);
-    //intervalo
-    result.intervalo = Math.round((result.amplitude + 1) / result.linhas);
-    console.log('intervalo');
-    console.log(result.intervalo);
-    return result
-};
+
 //Função que calcula o total de valores informados
 function calculateTotalInputs(arr) {
     let totalInputs = 0

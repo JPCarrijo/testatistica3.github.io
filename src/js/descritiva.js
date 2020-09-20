@@ -25,7 +25,7 @@ function calcular() {
     let ordemQltOrdinal = document.getElementById('ordemQltOrdinal').value.replace(/ /g, "").replace(/,/g, ".").split(';');
 
     let treatedArray = parseArray(inputValues);
-    
+
     inputedArrayOptions.inputedValues = treatedArray;
     inputedArrayOptions.countedElements = countElements(treatedArray);
     inputedArrayOptions.noRepeats = [...new Set(treatedArray)]
@@ -36,39 +36,47 @@ function calcular() {
     inputedArrayOptions.totalInputs = calculateTotalInputs(treatedArray);
     inputedArrayOptions.countedFi = countFi(inputedArrayOptions.countedElements)
     inputedArrayOptions.moda = calculateModa(inputedArrayOptions.countedElements);
-    inputedArrayOptions.fac = calculateFac(inputedArrayOptions.countedElements,inputedArrayOptions.countedFi);
+    inputedArrayOptions.fac = calculateFac(inputedArrayOptions.countedElements, inputedArrayOptions.countedFi);
     inputedArrayOptions.facOrdinal = calculateFac(inputedArrayOptions.countedOrdinal, inputedArrayOptions.countedFiOrdinal);
     inputedArrayOptions.mediana = calculateMediana(inputedArrayOptions.totalInputs, inputedArrayOptions.fac, inputedArrayOptions.countedElements);
 
     //Guardando o valor da média para qualitativas
-    if(qltNominal.checked){
+    if (qltNominal.checked) {
         inputedArrayOptions.media = 'Não possui média'
         inputedArrayOptions.type = 'pie';
     };
-    
-    if(qltOrdinal.checked){
+
+    if (qltOrdinal.checked) {
         inputedArrayOptions.media = 'Não possui média'
         inputedArrayOptions.moda = calculateModa(inputedArrayOptions.countedOrdinal);
         inputedArrayOptions.mediana = calculateMediana(inputedArrayOptions.totalInputs, inputedArrayOptions.facOrdinal, inputedArrayOptions.countedOrdinal);
         inputedArrayOptions.type = 'pie';
     };
 
-    if(qtDiscreta.checked){
+    if (qtDiscreta.checked) {
         inputedArrayOptions.media = calculateMediaDiscreta(inputedArrayOptions.countedElements, inputedArrayOptions.totalInputs)
         inputedArrayOptions.type = 'bar'
     }
-    
+
     if (qtContinua.checked) {
         let x = calculateContinua(inputedArrayOptions.inputedValues, inputedArrayOptions.totalInputs)
         inputedArrayOptions.amplitude = x.amplitude;
         inputedArrayOptions.linhas = x.linhas;
         inputedArrayOptions.intervalo = x.intervalo;
+        inputedArrayOptions.type = 'bar';
+        inputedArrayOptions.pontoMedioContinua = calculatePontoMedioIntContinua(inputedArrayOptions.noRepeats, inputedArrayOptions.intervalo, inputedArrayOptions.linhas);
+        inputedArrayOptions.countedFi = calculateFiContinua(inputedArrayOptions.pontoMedioContinua.valor1, inputedArrayOptions.linhas, inputedArrayOptions.inputedValues, inputedArrayOptions.intervalo);
+        inputedArrayOptions.media = calculateMediaContinua(inputedArrayOptions.pontoMedioContinua.media, inputedArrayOptions.countedFi, inputedArrayOptions.totalInputs);
+        inputedArrayOptions.moda = calculateModaContinua(inputedArrayOptions.pontoMedioContinua.valor1, inputedArrayOptions.pontoMedioContinua.valor2, inputedArrayOptions.countedFi);
+        inputedArrayOptions.fac = calculateFacContinua(inputedArrayOptions.linhas, inputedArrayOptions.countedFi);
+        inputedArrayOptions.mediana = calculateMedianaContinua(inputedArrayOptions.totalInputs);
     }
     console.log(inputedArrayOptions);
 
 
 
     inputedArrayOptions.validation = validarDados(inputedArrayOptions.inputedValues);
+
     if (inputedArrayOptions.validation) {
         if (inputValues == '') {
             createHeader(uploadedarrayOptions);
@@ -80,13 +88,13 @@ function calcular() {
             createChart(inputedArrayOptions);
         } else if (qtContinua.checked) {
             createHeader(inputedArrayOptions);
-            createTableContinua(inputedArrayOptions.noRepeats, inputedArrayOptions.intervalo, inputedArrayOptions.linhas, inputedArrayOptions.inputedValues);
-            inputedArrayOptions.type = 'bar';
+            createTableContinua(inputedArrayOptions.noRepeats, inputedArrayOptions.intervalo, inputedArrayOptions.linhas, inputedArrayOptions.inputedValues, inputedArrayOptions.totalInputs, inputedArrayOptions.fac);
+            createTable2(inputedArrayOptions.media, inputedArrayOptions.moda)
             createChart(inputedArrayOptions);
         } else {
             createHeader(inputedArrayOptions);
             createTable(inputedArrayOptions.countedElements, inputedArrayOptions.totalInputs, inputedArrayOptions.fac);
-            createTable2(inputedArrayOptions.media, inputedArrayOptions.moda,inputedArrayOptions.mediana,inputedArrayOptions.countedFi);
+            createTable2(inputedArrayOptions.media, inputedArrayOptions.moda, inputedArrayOptions.mediana, inputedArrayOptions.totalInputs);
             createChart(inputedArrayOptions);
         }
     }
