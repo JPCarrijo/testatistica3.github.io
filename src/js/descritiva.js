@@ -10,6 +10,7 @@ let qltNominal = document.getElementById('qltNominal');
 let qtDiscreta = document.getElementById('qtDiscreta');
 let qtContinua = document.getElementById('qtContinua');
 let table = document.getElementById('table');
+let table2 = document.getElementById('table2');
 //------------------------------------------------------------------------------
 
 //Ações
@@ -24,45 +25,59 @@ function calcular() {
     let ordemQltOrdinal = document.getElementById('ordemQltOrdinal').value.replace(/ /g, "").replace(/,/g, ".").split(';');
 
     let treatedArray = parseArray(inputValues);
-    let counted = countElements(treatedArray);
-    let parsedOrdinal = parseArray(ordemQltOrdinal);
-    let countedOrdinal = countElements(parsedOrdinal);
-    //array sem valores repetidos, para ser usado na primeira coluna da tabela
-    let valoresSemRepeticao = [...new Set(treatedArray)];
-
-
-
+    
     inputedArrayOptions.inputedValues = treatedArray;
-    inputedArrayOptions.countedElements = counted;
-    inputedArrayOptions.noRepeats = valoresSemRepeticao;
+    inputedArrayOptions.countedElements = countElements(treatedArray);
+    inputedArrayOptions.noRepeats = [...new Set(treatedArray)]
     inputedArrayOptions.varName = varNameInput;
-    inputedArrayOptions.countedOrdinal = countedOrdinal;
-    inputedArrayOptions.order = parsedOrdinal;
+    inputedArrayOptions.order = parseArray(ordemQltOrdinal);
+    inputedArrayOptions.countedOrdinal = countOrdinal(inputedArrayOptions.countedElements, inputedArrayOptions.order);
+    inputedArrayOptions.countedFiOrdinal = countFi(inputedArrayOptions.countedOrdinal)
     inputedArrayOptions.totalInputs = calculateTotalInputs(treatedArray);
-    //array que guarda os valores impressos na coluna fi
     inputedArrayOptions.countedFi = countFi(inputedArrayOptions.countedElements)
-    //guardando o valor da moda
     inputedArrayOptions.moda = calculateModa(inputedArrayOptions.countedElements);
-    //inputedArrayOptions.mediana = calculateMediana(inputedArrayOptions.totalInputs);
-    inputedArrayOptions.validation = validarDados(inputedArrayOptions.inputedValues);
+    inputedArrayOptions.fac = calculateFac(inputedArrayOptions.countedElements,inputedArrayOptions.countedFi);
+    inputedArrayOptions.facOrdinal = calculateFac(inputedArrayOptions.countedOrdinal, inputedArrayOptions.countedFiOrdinal);
+    inputedArrayOptions.mediana = calculateMediana(inputedArrayOptions.totalInputs, inputedArrayOptions.fac, inputedArrayOptions.countedElements);
+
+    //Guardando o valor da média para qualitativas
+    if(qltNominal.checked){
+        inputedArrayOptions.media = 'Não possui média'
+        inputedArrayOptions.type = 'pie';
+    };
+    
+    if(qltOrdinal.checked){
+        inputedArrayOptions.media = 'Não possui média'
+        inputedArrayOptions.moda = calculateModa(inputedArrayOptions.countedOrdinal);
+        inputedArrayOptions.mediana = calculateMediana(inputedArrayOptions.totalInputs, inputedArrayOptions.facOrdinal, inputedArrayOptions.countedOrdinal);
+        inputedArrayOptions.type = 'pie';
+    };
+
+    if(qtDiscreta.checked){
+        inputedArrayOptions.media = calculateMediaDiscreta(inputedArrayOptions.countedElements, inputedArrayOptions.totalInputs)
+        inputedArrayOptions.type = 'bar'
+    }
+    
     if (qtContinua.checked) {
         let x = calculateContinua(inputedArrayOptions.inputedValues, inputedArrayOptions.totalInputs)
         inputedArrayOptions.amplitude = x.amplitude;
         inputedArrayOptions.linhas = x.linhas;
         inputedArrayOptions.intervalo = x.intervalo;
     }
-    console.log('inputedArray');
     console.log(inputedArrayOptions);
 
 
 
-
+    inputedArrayOptions.validation = validarDados(inputedArrayOptions.inputedValues);
     if (inputedArrayOptions.validation) {
         if (inputValues == '') {
             createHeader(uploadedarrayOptions);
             createTable(uploadedarrayOptions.countedElements);
         } else if (qltOrdinal.checked) {
             createHeader(inputedArrayOptions);
+            createTable(inputedArrayOptions.countedOrdinal, inputedArrayOptions.totalInputs, inputedArrayOptions.facOrdinal);
+            createTable2(inputedArrayOptions.media, inputedArrayOptions.moda, inputedArrayOptions.mediana, inputedArrayOptions.countedFi);
+            createChart(inputedArrayOptions);
         } else if (qtContinua.checked) {
             createHeader(inputedArrayOptions);
             createTableContinua(inputedArrayOptions.noRepeats, inputedArrayOptions.intervalo, inputedArrayOptions.linhas, inputedArrayOptions.inputedValues);
@@ -70,8 +85,8 @@ function calcular() {
             createChart(inputedArrayOptions);
         } else {
             createHeader(inputedArrayOptions);
-            createTable(inputedArrayOptions.countedElements, inputedArrayOptions.totalInputs, inputedArrayOptions.countedFi);
-            inputedArrayOptions.type = 'pie';
+            createTable(inputedArrayOptions.countedElements, inputedArrayOptions.totalInputs, inputedArrayOptions.fac);
+            createTable2(inputedArrayOptions.media, inputedArrayOptions.moda,inputedArrayOptions.mediana,inputedArrayOptions.countedFi);
             createChart(inputedArrayOptions);
         }
     }

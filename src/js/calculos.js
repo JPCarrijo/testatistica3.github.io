@@ -5,27 +5,75 @@ function parseArray(arr) {
     return temp
 }
 
+function calculateMediaDiscreta(obj, total) {
+    let objKeys = Object.keys(obj)
+    let objValues = Object.values(obj)
+    let y = parseArray(objKeys)
+    let soma = 0
+    for (let i = 0; i < y.length; i++) {
+        soma += y[i] * objValues[i]
+    }
+    let media = Math.round(soma / total)
+    console.log(soma);
+    console.log(y);
+    console.log(objValues);
+    console.log(media);
+    return media
+}
+
 //Função que calcula a moda 
 function calculateModa(obj) {
     let result = 0;
     let temp = '';
+    let z = 0
     let objKeys = Object.keys(obj);
     let objValues = Object.values(obj);
     for (let i = 0; i < objValues.length; i++) {
         if (result < objValues[i]) {
             result = objValues[i]
-            temp = objKeys[i]
+            if(objValues[i] === objValues[i - 1]){
+                temp = `${objKeys[i]}, ${objKeys[i - 1]}`
+            } else if (objValues[i] === objValues[i + 1]){
+                temp = `${objKeys[i]}, ${objKeys[i + 1]}`
+            }else{
+                temp = objKeys[i]
+            }
         }
     }
+    
     return temp;
 };
 
-/* function calculateMediana(value){
-    let mediana = (value / 2) 
-    let mediana1 = mediana +1
-    if(mediana == )
-    return result
-} */
+function calculateMediana(total, fac, obj){
+    let objKeys = Object.keys(obj)
+    let objValues = Object.values(obj)
+    let inicio = 0
+    let result
+
+    if(total % 2 == 0){
+        result =  total / 2;
+        for (let i = 0; i < fac.length; i++) {
+            if (result >= inicio && result <= fac[i]) {
+                return [objKeys[i], objKeys[i + 1]]
+            } else {
+                inicio = objValues[i]
+            }
+        }
+    }else {
+        result = Math.round(total / 2) 
+        for (let i = 0; i < fac.length; i++) {
+            if (result >= inicio && result <= fac[i]) {
+                return objKeys[i]
+            } else {
+                inicio = objValues[i]
+            }
+        }
+    }
+    
+    
+    
+};
+
 
 function calculateContinua(arr, prop) {
     let result = {};
@@ -47,7 +95,7 @@ function calculateContinua(arr, prop) {
     return result
 };
 //Função que calcula o total de valores informados
-function calculateTotalInputs(arr){
+function calculateTotalInputs(arr) {
     let totalInputs = 0
     for (let i of arr) {
         totalInputs++
@@ -72,15 +120,26 @@ function countElements(arr) {
     return occurrences
 };
 
-/* function calculateFac(arr){
-    let temp = []
-    let x = arr[0]
-    let count = 0
-    for (let j = 0; j <= arr.length; j++) {
-        if (arr[j] >= x && arr[j] <= (x + (intervalo - 1))) {
-            count++
+function countOrdinal(a, b) {
+    var matches = {};
+    let objKeys = Object.keys(a)
+    let objValues = Object.values(a)
+    for (var i = 0; i < objKeys.length; i++) {
+        for (var e = 0; e < b.length; e++) {
+            if (objKeys[i] === b[e]) matches[`${b[i]}`] = objValues[i];
         }
-        x += intervalo
-        temp.push(x)
     }
-} */
+    return matches;
+}
+
+function calculateFac(obj, fiValues) {
+    let temp = [];
+    let count = 0;
+    let totalFac = fiValues[0];
+    for(let i in obj){
+        temp.push(totalFac);
+        count++;
+        totalFac+= fiValues[count];
+    };
+    return temp;
+};
