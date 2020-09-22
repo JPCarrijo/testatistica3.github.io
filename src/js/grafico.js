@@ -1,12 +1,12 @@
-function createChart(obj) {
+function createChart(labels, name, fi, type) {
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
-        type: obj.type,
+        type: type,
         data: {
-            labels: obj.noRepeats,
+            labels: labels,
             datasets: [{
-                label: obj.varName,
-                data: obj.countedFi,
+                label: name,
+                data: fi,
                 backgroundColor: [
                     'rgba(255, 99, 132)',
                     'rgba(54, 162, 235)',
@@ -40,4 +40,14 @@ function createChart(obj) {
             }
         }
     });
+};
+
+function createChartLabels(arr1, arr2, linhas){
+    let labels = [];
+    let temp;
+    for(let i = 0; i < linhas; i++){
+        temp = `${arr1[i]} --| ${arr2[i]}`
+        labels.push(temp)
+    }
+    return labels
 }
