@@ -1,3 +1,4 @@
+
 function validarDados(arr){
     if(qltOrdinal.checked || qltNominal.checked){
         for(let value of arr){

@@ -5,6 +5,7 @@ let uploadedarrayOptions = {};
 
 //Acessando os elementos HTML
 let btnCalcular = document.getElementById('btnCalcular');
+let csvFile = document.getElementById("csv-file");
 let qltNominal = document.getElementById('qltNominal');
 let qtDiscreta = document.getElementById('qtDiscreta');
 let qtContinua = document.getElementById('qtContinua');
@@ -16,7 +17,7 @@ let canvas = document.getElementById('myChart');
 
 //Ações
 btnCalcular.addEventListener('click', calcular);
-
+csvFile.addEventListener("change", upload, false);
 
 //------------------------------------------------------------------------------
 
@@ -27,8 +28,6 @@ function calcular() {
     let ordemQltOrdinal = document.getElementById('ordemQltOrdinal').value.replace(/ /g, "").replace(/,/g, ".").split(';');
 
     let treatedArray = parseArray(inputValues);
-
-    
 
     inputedArrayOptions.inputedValues = treatedArray;
     inputedArrayOptions.countedElements = countElements(treatedArray);
@@ -81,9 +80,9 @@ function calcular() {
 
 
 
-    //inputedArrayOptions.validation = validarDados(inputedArrayOptions.inputedValues);
+    inputedArrayOptions.validation = validarDados(inputedArrayOptions.inputedValues);
 
-    
+    if (inputedArrayOptions.validation) {
         if (inputValues == '') {
             createHeader(uploadedarrayOptions);
             createTable(uploadedarrayOptions.countedElements);
@@ -103,11 +102,8 @@ function calcular() {
             createTable2(inputedArrayOptions.media, inputedArrayOptions.moda, inputedArrayOptions.mediana, inputedArrayOptions.totalInputs);
             createChart(inputedArrayOptions.noRepeats, inputedArrayOptions.varName, inputedArrayOptions.countedFi, inputedArrayOptions.type);
         }
+    }
 };
-
-
-
-
 
 
 

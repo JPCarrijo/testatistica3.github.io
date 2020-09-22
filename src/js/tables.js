@@ -35,7 +35,7 @@ function createTableContinua(arr, intervalo, linhas, arr2,total,fac) {
     for (let i = 0; i < linhas; i++) {
         let row = table.insertRow();
         let cell = row.insertCell();
-        let text = document.createTextNode(`${x} |-- ${x + intervalo}`);
+        let text = document.createTextNode(`${x} --| ${x + intervalo}`);
         cell.appendChild(text)
 
         let count = 0
@@ -52,7 +52,7 @@ function createTableContinua(arr, intervalo, linhas, arr2,total,fac) {
         let formatedFr = (count / total) * 100
         totalFacPercent += formatedFr;
         let cellFrPercent = row.insertCell();
-        let textFrPercent = document.createTextNode(formatedFr);
+        let textFrPercent = document.createTextNode(formatedFr.toFixed(2));
         cellFrPercent.appendChild(textFrPercent);
 
         let cellFac = row.insertCell();

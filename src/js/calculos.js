@@ -13,7 +13,8 @@ function calculateMediaDiscreta(obj, total) {
     for (let i = 0; i < y.length; i++) {
         soma += y[i] * objValues[i]
     }
-    let media = Math.round(soma / total)
+    let z = soma / total
+    let media = z.toFixed(2)
     
     return media
 }
@@ -49,7 +50,7 @@ function calculateMediana(total, fac, obj){
         result =  total / 2;
         for (let i = 0; i < fac.length; i++) {
             if (result >= inicio && result <= fac[i]) {
-                return [objKeys[i], objKeys[i + 1]]
+                return `${objKeys[i]} e ${objKeys[i + 1]}`
             } else {
                 inicio = objValues[i]
             }
