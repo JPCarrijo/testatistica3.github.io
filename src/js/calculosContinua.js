@@ -141,3 +141,42 @@ function calculateMedianaContinua(total,fac, media, fi, intervalo){
     return mediana
 };
 
+function calculateSeparatrizContinua(total, arr, fac, fi, intervalo){
+    let result = {}, inicio = 0
+   /*  let quartilOptions = document.getElementById('quartilOptions')
+    let separatrizes = document.getElementById('separatrizes') */
+    if (separatrizes.value === 'Quartil') {
+        result.posicao = (total / 100) * (quartilOptions.value * 25) 
+        result.separatrizValue = (quartilOptions.value * 25) + '%'
+    } else if (separatrizes.value === 'Quintil') {
+        result.posicao = (total / 100) * (quintilOptions.value * 20) 
+        result.separatrizValue = (quintilOptions.value * 20) + '%'
+    } else if (separatrizes.value === 'Decil') {
+        result.posicao = (total / 100) * (decilOptions.value * 10) 
+        result.separatrizValue = (decilOptions.value * 10) + '%'
+    } else if (separatrizes.value === 'Porcentil') {
+        result.posicao = (total / 100) * (porcentilOptions.value * 1) 
+        result.separatrizValue = (porcentilOptions.value * 1) + '%'
+    } else {
+        inputedOptions.separatriz = 'Não escolhida'
+    }
+
+    for(let i = 0; i <= fac.length - 1; i++){
+        if(result.posicao > inicio && result.posicao <= fac[i]){
+            if(i === 0){
+                result.facAnterior = 0
+                result.valorInicio = arr[0]
+                result.valorFi = fi[0]
+            }else {
+                result.facAnterior = fac[i - 1]
+                result.valorInicio = arr[i]
+                result.valorFi = fi[i]
+            }
+            inicio = fac[i]
+        }
+    };
+
+    let gg = (result.valorInicio + (((result.posicao - result.facAnterior) / result.valorFi) * intervalo))
+    result.separatriz = gg.toFixed(2)
+    return result
+}

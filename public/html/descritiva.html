@@ -14,27 +14,66 @@
     <div id="primeira">
         <p>Entre Manualmente com os Dados</p>
         <p></p><input type="text" id="inputValues"
-            placeholder="Insira valores separados por ponto e vírgula(;) sem espaços" onfocus="this.value = ''">
+            placeholder="Insira valores separados por ponto e vírgula(;) sem espaços">
         <p>OU escolha um arquivo com a extensão .csv</p>
 
         <input type="file" id="csv-file" accept=".csv" name="csv-file"></p>
 
-        <p><input type="radio" name="radi" checked> AMOSTRA</p>
-        <p><input type="radio" name="radi"> POPULAÇÃO</p>
+        <p><input type="radio" name="radi" id="amostra"> AMOSTRA <span id="amostraHelp">?Sobre</span></p>
+        <p><input type="radio" name="radi" id="populacao" checked> POPULAÇÃO <span id="populacaoHelp">?Sobre</span></p>
 
     </div>
     <div id="segunda">
-        <p>Nome da Variável <input type="text" id="varNameInput"></p>
+        <p>Nome da Variável <input type="text" id="varNameInput"><span id="varNameHelp">?Ajuda</span></p></p>
         <p><input type="radio" name="radi2" checked id="qltNominal"> VARIÁVEL QUALITATIVA NOMINAL</p>
         <p><input type="radio" name="radi2" id="qltOrdinal"> VARIÁVEL QUALITATIVA ORDINAL</p>
         <p><input type="text" id="ordemQltOrdinal" placeholder="Informe a ordem das variáveis"></p>
         <p><input type="radio" name="radi2" id="qtDiscreta"> VARIÁVEL QUANTITATIVA DISCRETA</p>
         <p><input type="radio" name="radi2" id="qtContinua"> VARIÁVEL QUANTITATIVA CONTÍNUA</P>
+        <div>
+            <select name="" id="separatrizes" onchange="showOptions()">
+                <option value="" disabled selected hidden>Escolha uma Medida Sepearatriz</option>
+                <option value="Quartil">Quartil</option>
+                <option value="Quintil">Quintil</option>
+                <option value="Decil">Decil</option>
+                <option value="Porcentil">Porcentil</option>
+            </select>
+            <select name="" id="quartilOptions" style="display: none;">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <select name="" id="quintilOptions" style="display: none;">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <select name="" id="decilOptions" style="display: none;">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <input type="range" max="100" min="1" step="1" id="porcentilOptions" value="1" onchange="showValue(this.value)" style="display: none;">
+            <span id="porcentilShow"></span>
+            
+        </div>
         <p><button id="btnCalcular">Calcular</button></p>
+        <p><button id="btnLimpar">Limpar</button></p>
+        <p><a href="../../index.html"><button id="btnVoltar">Voltar</button></a></p>
     </div>
 
 
-    <table id="table">
+    <table id="table" style="display: none;">
         <tr>
             <th id="varNameHeader"></th>
             <th id="fi"></th>
@@ -47,20 +86,27 @@
         </tr>
     </table>
 
-    <table id="table2">
+    <table id="table2" style="display: none;">
         <tr>
             <th id="media"></th>
             <th id="moda"></th>
             <th id="mediana"></th>
             <th id="totalValores"></th>
         </tr>
-        
+    </table>
+
+    <table id="table3" style="display: none;">
+        <tr>
+            <th id="desvioPadrao"></th>
+            <th id="coeficienteVariacao"></th>
+            <th id="medidaSeparatriz"></th>
+        </tr>
     </table>
 
     <div id="grafico">
         <canvas id="myChart" width="100" height="100"></canvas>
     </div>
-    <script src="../../src/js/index.js"></script>
+    <script src="../../src/js/descritivaPageControls.js"></script>
     <script src="../../src/js/calculos.js"></script>
     <script src="../../src/js/createHeader.js"></script>
     <script src="../../src/js/tables.js"></script>

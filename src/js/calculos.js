@@ -1,4 +1,5 @@
 //Todo valor de input entra como string. Essa função verifica se o valor pode ser convertido em números e, caso seja possível, faz a conversão e joga dentro do array parsedArray. Caso não seja possível, joga o elemento em parsedArray do jeito que está.
+
 function parseArray(arr) {
     let temp = [];
     for (let i of arr) { !isNaN(i) ? temp.push(+i) : temp.push(i) };
@@ -20,24 +21,29 @@ function calculateMediaDiscreta(obj, total) {
 }
 
 //Função que calcula a moda 
-function calculateModa(obj) {
-    let result = 0;
-    let temp = '';
-    let objKeys = Object.keys(obj);
-    let objValues = Object.values(obj);
-    for (let i = 0; i < objValues.length; i++) {
-        if (result < objValues[i]) {
-            result = objValues[i]
-            if(objValues[i] === objValues[i - 1]){
-                temp = `${objKeys[i]}, ${objKeys[i - 1]}`
-            } else if (objValues[i] === objValues[i + 1]){
-                temp = `${objKeys[i]}, ${objKeys[i + 1]}`
-            }else{
-                temp = objKeys[i]
+function calculateModa(arr, fi) {
+    let moda, inicio = 0, jj = fi[0], valoresModa = []
+    const allEqual = fi.every(e => e === jj)
+    if (allEqual){
+        return moda = 'Não possui moda'
+    }else {
+        for(let i = 0; i <= fi.length - 1; i++){
+            if(fi[i] > inicio){
+                //result.moda = fi[i]
+                //console.log(result.moda);
+                inicio = fi[i]
             }
         }
+        console.log(inicio);
+        //return result.moda
     }
-    return temp;
+    for(let i = 0; i <= fi.length - 1; i++){
+        if(fi[i] === inicio){
+            valoresModa.push(arr[i])
+        }
+    }
+    console.log(valoresModa);
+    return valoresModa
 };
 
 function calculateMediana(total, fac, obj){
@@ -117,4 +123,78 @@ function calculateFac(obj, fiValues) {
         totalFac+= fiValues[count];
     };
     return temp;
+};
+
+function calculateDesvioPadrao(arr1, media, fi, total){
+    let c = []; let n = 0; let result = {};
+    
+    for(let i = 0; i <= arr1.length - 1; i++){
+        let b = Math.pow((arr1[i] - media), 2) * fi[i]
+        c.push(b)
+    }
+    for(let i of c){
+        n += i
+    }
+    let variancia = n / total
+    result.desvioPadrao = Math.sqrt(variancia).toFixed(2)
+    result.coeficienteVariacao = ((result.desvioPadrao / media) * 100).toFixed(2) + '%'
+    return result
+};
+
+function calculateQuartil(total, value, fac, noRepeat){
+    let result = {}, inicio = 0, quartilValue = value * 25
+    
+    result.posicao = Math.round((total / 100) * quartilValue)
+    for(let i = 0; i <= fac.length - 1; i++){
+        if (result.posicao > inicio && result.posicao <= fac[i]){
+            result.quartil = noRepeat[i]
+        }
+        inicio = fac[i]
+    }
+    result.quartilValue = quartilValue + '%'
+    return result
+};
+
+function calculateQuintil(total, value, fac, noRepeat){
+    let result = {}, inicio = 0, quartilValue = value * 20
+
+    result.posicao = Math.round((total / 100) * quartilValue)
+    for (let i = 0; i <= fac.length - 1; i++) {
+        if (result.posicao > inicio && result.posicao <= fac[i]) {
+            result.quintil = noRepeat[i]
+        }
+        inicio = fac[i]
+    }
+    result.quintilValue = quartilValue + '%'
+    return result
+};
+
+function calculateDecil(total, value, fac, noRepeat){
+    let result = {}, inicio = 0, quartilValue = value * 10
+
+    result.posicao = Math.round((total / 100) * quartilValue)
+    for (let i = 0; i <= fac.length - 1; i++) {
+        if (result.posicao > inicio && result.posicao <= fac[i]) {
+            result.decil = noRepeat[i]
+        }
+        inicio = fac[i]
+    }
+    result.decilValue = quartilValue + '%'
+    return result
+};
+
+function calculatePorcentil(total, value, fac, noRepeat){
+    let result = {}, inicio = 0, quartilValue = value * 1
+
+    result.posicao = Math.round((total / 100) * quartilValue)
+    for (let i = 0; i <= fac.length - 1; i++) {
+        if (result.posicao > inicio && result.posicao <= fac[i]) {
+            result.porcentil = noRepeat[i]
+        }else if(result.posicao === 0){
+            result.porcentil = noRepeat[0]
+        }
+        inicio = fac[i]
+    }
+    result.porcentilValue = quartilValue + '%'
+    return result
 };

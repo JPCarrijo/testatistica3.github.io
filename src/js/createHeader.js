@@ -9,6 +9,9 @@ function createHeader(obj) {
     let moda = document.getElementById('moda');
     let mediana = document.getElementById('mediana');
     let totalValores = document.getElementById('totalValores');
+    let coeficienteVariacao = document.getElementById('coeficienteVariacao');
+    let desvioPadrao = document.getElementById('desvioPadrao');
+    let medidaSeparatriz = document.getElementById('medidaSeparatriz');
 
     varNameHeader.innerHTML = obj.varName
     fi.innerText = 'fi'
@@ -20,4 +23,7 @@ function createHeader(obj) {
     moda.innerText = 'Moda'
     mediana.innerText = 'Mediana';
     totalValores.innerText = 'Total';
+    desvioPadrao.innerText = 'Desvio Padrão';
+    coeficienteVariacao.innerText = 'Coeficiente de Variação';
+    medidaSeparatriz.innerText = 'Medida Separatriz';
 };
