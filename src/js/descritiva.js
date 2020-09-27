@@ -50,15 +50,19 @@ function calcular() {
         inputedOptions.countedFiOrdinal = countFi(inputedOptions.countedOrdinal)
         inputedOptions.totalInputs = calculateTotalInputs(treatedArray);
         inputedOptions.countedFi = countFi(inputedOptions.countedElements)
+
+        inputedOptions.frPercent = calculateFrPercent(inputedOptions.countedFi, inputedOptions.totalInputs);
+
         inputedOptions.fac = calculateFac(inputedOptions.countedElements, inputedOptions.countedFi);
         inputedOptions.facOrdinal = calculateFac(inputedOptions.countedOrdinal, inputedOptions.countedFiOrdinal);
         inputedOptions.mediana = calculateMediana(inputedOptions.totalInputs, inputedOptions.fac, inputedOptions.countedElements);
 
-        
         if (qltNominal.checked) {
             inputedOptions.media = 'Não possui média'
 
             inputedOptions.type = 'pie';
+
+            inputedOptions.colors = createHexCodeArray(inputedOptions.countedFi);
 
             inputedOptions.moda = calculateModa(inputedOptions.noRepeats, inputedOptions.countedFi);
 
@@ -96,6 +100,9 @@ function calcular() {
             inputedOptions.mediana = calculateMediana(inputedOptions.totalInputs, inputedOptions.facOrdinal, inputedOptions.countedOrdinal);
 
             inputedOptions.type = 'pie';
+
+            inputedOptions.colors = createHexCodeArray(inputedOptions.countedFiOrdinal);
+
             inputedOptions.desvioPadrao = 'Não possui desvio';
 
             inputedOptions.coeficienteVariacao = 'Não possui coeficiente de variação';
@@ -126,7 +133,9 @@ function calcular() {
 
             inputedOptions.type = 'bar';
 
-            inputedOptions.moda = calculateModa(inputedOptions.noRepeats, inputedOptions.countedFi);
+            inputedOptions.moda = calculateModa(inputedOptions.countedElements);
+
+            inputedOptions.colors = createHexCodeArray(inputedOptions.countedFi);
 
             if(populacao.checked){
                 let jj = calculateDesvioPadrao(inputedOptions.noRepeats, inputedOptions.media, inputedOptions.countedFi, inputedOptions.totalInputs);
@@ -157,6 +166,7 @@ function calcular() {
             } else {
                 inputedOptions.separatriz = 'Não escolhida'
             }
+            
         }
 
         if (qtContinua.checked) {
@@ -170,17 +180,19 @@ function calcular() {
 
             inputedOptions.type = 'bar';
 
+            inputedOptions.colors = createHexCodeArray(inputedOptions.countedFi);
+
             inputedOptions.pontoMedioContinua = calculatePontoMedioIntContinua(inputedOptions.noRepeats, inputedOptions.intervalo, inputedOptions.linhas);
 
             inputedOptions.countedFi = calculateFiContinua(inputedOptions.pontoMedioContinua.valor1, inputedOptions.linhas, inputedOptions.inputedValues, inputedOptions.intervalo);
 
             inputedOptions.media = calculateMediaContinua(inputedOptions.pontoMedioContinua.media, inputedOptions.countedFi, inputedOptions.totalInputs);
 
-            inputedOptions.moda = calculateModaContinua(inputedOptions.pontoMedioContinua.valor1, inputedOptions.pontoMedioContinua.valor2, inputedOptions.countedFi);
-
             inputedOptions.fac = calculateFacContinua(inputedOptions.linhas, inputedOptions.countedFi);
+            
+            inputedOptions.moda = calculateModaContinua(inputedOptions.pontoMedioContinua.media,inputedOptions.countedFi);
 
-            inputedOptions.mediana = calculateMedianaContinua(inputedOptions.totalInputs, inputedOptions.fac, inputedOptions.pontoMedioContinua.media, inputedOptions.countedFi, inputedOptions.intervalo);
+            inputedOptions.mediana = calculateMedianaContinua(inputedOptions.pontoMedioContinua.valor1, inputedOptions.totalInputs, inputedOptions.fac, inputedOptions.countedFi, inputedOptions.intervalo);
 
             inputedOptions.labels = createChartLabels(inputedOptions.pontoMedioContinua.valor1, inputedOptions.pontoMedioContinua.valor2, inputedOptions.linhas);
 
@@ -203,25 +215,25 @@ function calcular() {
             createTable(inputedOptions.countedElements, inputedOptions.totalInputs, inputedOptions.fac);
             createTable2(inputedOptions.media, inputedOptions.moda, inputedOptions.mediana, inputedOptions.totalInputs);
             createTable3(inputedOptions.desvioPadrao, inputedOptions.coeficienteVariacao, inputedOptions.separatriz);
-            createChart(inputedOptions.noRepeats, inputedOptions.varName, inputedOptions.countedFi, inputedOptions.type);
+            createChart(inputedOptions.noRepeats, inputedOptions.varName, inputedOptions.countedFi, inputedOptions.type, inputedOptions.colors, inputedOptions.frPercent);
         }else if (qltOrdinal.checked) {
             createHeader(inputedOptions);
             createTable(inputedOptions.countedOrdinal, inputedOptions.totalInputs, inputedOptions.facOrdinal);
             createTable2(inputedOptions.media, inputedOptions.moda, inputedOptions.mediana, inputedOptions.totalInputs);
             createTable3(inputedOptions.desvioPadrao, inputedOptions.coeficienteVariacao, inputedOptions.separatriz);
-            createChart(inputedOptions.noRepeats, inputedOptions.varName, inputedOptions.countedFiOrdinal, inputedOptions.type);
+            createChart(inputedOptions.noRepeats, inputedOptions.varName, inputedOptions.countedFiOrdinal, inputedOptions.type, inputedOptions.colors, inputedOptions.frPercent);
         } else if (qtContinua.checked) {
             createHeader(inputedOptions);
             createTableContinua(inputedOptions.noRepeats, inputedOptions.intervalo, inputedOptions.linhas, inputedOptions.inputedValues, inputedOptions.totalInputs, inputedOptions.fac);
             createTable2(inputedOptions.media, inputedOptions.moda, inputedOptions.mediana, inputedOptions.totalInputs);
-            createTable3(inputedOptions.desvioPadrao, inputedOptions.coeficienteVariacao, inputedOptions.separatriz.separatriz);
-            createChart(inputedOptions.labels, inputedOptions.varName, inputedOptions.countedFi, inputedOptions.type);
+            createTable3(inputedOptions.desvioPadrao, inputedOptions.coeficienteVariacao, inputedOptions.separatriz);
+            createChart(inputedOptions.labels, inputedOptions.varName, inputedOptions.countedFi, inputedOptions.type, inputedOptions.colors, inputedOptions.frPercent);
         } else if(qtDiscreta.checked){
             createHeader(inputedOptions);
             createTable(inputedOptions.countedElements, inputedOptions.totalInputs, inputedOptions.fac);
             createTable2(inputedOptions.media, inputedOptions.moda, inputedOptions.mediana, inputedOptions.totalInputs);
             createTable3(inputedOptions.desvioPadrao, inputedOptions.coeficienteVariacao, inputedOptions.separatriz);
-            createChart(inputedOptions.noRepeats, inputedOptions.varName, inputedOptions.countedFi, inputedOptions.type);
+            createChart(inputedOptions.noRepeats, inputedOptions.varName, inputedOptions.countedFi, inputedOptions.type, inputedOptions.colors, inputedOptions.frPercent);
         }
     };
 

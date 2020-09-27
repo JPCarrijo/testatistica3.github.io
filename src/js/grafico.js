@@ -1,4 +1,26 @@
-function createChart(labels, name, fi, type) {
+const colors = [1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
+let hexColorArray = []
+let cc = [1, 2, 3, 4, 5, 6]
+function createHexCode() {
+    let hexColor = '#'
+    for (let i = 0; i < 6; i++) {
+        hexColor += colors[generateCode()]
+    };
+    hexColorArray.push(hexColor)
+}
+
+function createHexCodeArray(arr) {
+    for (let i = 0; i <= arr.length - 1; i++) {
+        createHexCode()
+    }
+    return hexColorArray
+}
+
+function generateCode() {
+    return Math.floor(Math.random() * colors.length)
+};
+
+function createChart(labels, name, fi, type, colors, fr) {
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: type,
@@ -7,22 +29,8 @@ function createChart(labels, name, fi, type) {
             datasets: [{
                 label: name,
                 data: fi,
-                backgroundColor: [
-                    'rgba(255, 99, 132)',
-                    'rgba(54, 162, 235)',
-                    'rgba(255, 206, 86)',
-                    'rgba(75, 192, 192)',
-                    'rgba(153, 102, 255)',
-                    'rgba(255, 159, 64)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+                backgroundColor: colors,
+                borderColor: colors,
                 borderWidth: 1
             }]
         },

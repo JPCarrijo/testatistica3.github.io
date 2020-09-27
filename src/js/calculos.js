@@ -21,28 +21,26 @@ function calculateMediaDiscreta(obj, total) {
 }
 
 //Função que calcula a moda 
-function calculateModa(arr, fi) {
-    let moda, inicio = 0, jj = fi[0], valoresModa = []
-    const allEqual = fi.every(e => e === jj)
+function calculateModa(obj) {
+    let inicio = 0, valoresModa = []
+    let objKeys = Object.keys(obj)
+    objValues = Object.values(obj)
+    jj = objValues[0]
+    const allEqual = objValues.every(e => e === jj)
     if (allEqual){
         return moda = 'Não possui moda'
     }else {
-        for(let i = 0; i <= fi.length - 1; i++){
-            if(fi[i] > inicio){
-                //result.moda = fi[i]
-                //console.log(result.moda);
-                inicio = fi[i]
+        for (let i = 0; i <= objValues.length - 1; i++){
+            if(objValues[i] > inicio){
+                inicio = objValues[i]
             }
         }
-        console.log(inicio);
-        //return result.moda
     }
-    for(let i = 0; i <= fi.length - 1; i++){
-        if(fi[i] === inicio){
-            valoresModa.push(arr[i])
+    for (let i = 0; i <= objValues.length - 1; i++){
+        if (objValues[i] === inicio){
+            valoresModa.push(objKeys[i])
         }
     }
-    console.log(valoresModa);
     return valoresModa
 };
 
@@ -198,3 +196,11 @@ function calculatePorcentil(total, value, fac, noRepeat){
     result.porcentilValue = quartilValue + '%'
     return result
 };
+
+function calculateFrPercent(arr, total){
+    let bb = []
+    for(let i = 0; i < arr.length; i++){
+        bb.push(arr[i] / total * 100)
+    }
+    return bb
+}
