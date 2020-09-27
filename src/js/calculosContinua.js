@@ -81,63 +81,82 @@ function calculateMediaContinua(arr, fi, total) {
     for (let i of result) {
         mediaTemp += i
     }
-    let media = mediaTemp / total
+    let media = (mediaTemp / total).toFixed(2)
     return media
 };
 
-function calculateModaContinua(arr, arr2, fi) {
-    let temp = 0;
-    for (let i of fi) {
-        if (temp < i) temp = i
+function calculateModaContinua(arrMedias, fi) {
+    let inicio = 0, jj = fi[0], valoresModa = [], valorMedia
+    const allEqual = fi.every(e => e === jj)
+    if(allEqual){
+            valoresModa.push('Não possui moda')
+    }else {
+        for(let i = 0; i <= fi.length; i++){
+            if(fi[i] > inicio){
+                inicio = fi[i]
+                valorMedia = arrMedias[i]
+            }
+        }
     }
-
-    function findIndexFi(element, index, array) {
-        if (element == temp) {
-            return index
-        } else return false
+    for(let j = 0; j <= fi.length; j++){
+        if(fi[j] === inicio){
+            valoresModa.push(arrMedias[j])
+        }
     }
-    let valueIndex = fi.findIndex(findIndexFi)
-
-    let moda = (arr[valueIndex] + arr2[valueIndex]) / 2
-    return moda
+    return valoresModa
 };
 
-function calculateMedianaContinua(total,fac, media, fi, intervalo){
-    //posição da mediana
-    let x = Math.round(total / 2);
-    let posicao = [x, x + 1];
-    let linhaMediana = [];
-    let inicio = 0;
-    //encontrando a linha da mediana
+function calculateMedianaContinua(arrEsq, total, fac, fi, intervalo){
+    let linhaMediana, inicio = 0, count = 0, facAnterior
+    linhaMediana = Math.round(total / 2)//38
+    //encontrando o indice no fac
     for(let i = 0; i <= fac.length - 1; i++){
-        if (posicao[0] > inicio && posicao[0] <= fac[i] || posicao[1] > inicio && posicao[1] <= fac[i]){
-            linhaMediana.push(i);
-            inicio = fac[i];
-        };
-    };
-    inicio = 0;
-    for (let i = 0; i <= fac.length - 1; i++) {
-        if (posicao[1] > inicio && posicao[1] <= fac[i]) {
-            linhaMediana.push(i);
-            inicio = fac[i];
-        };
-    };
-
-    let mediana = [];
-    let y;
-    let z;
-    if(linhaMediana[0] === linhaMediana[1]){
-        y = (posicao[0] - fac[linhaMediana[0] - 1]) / fi[linhaMediana[0]]
-        let valor1 = (y * intervalo) + media[linhaMediana[0]]
-        mediana.push(valor1)
-    }else {
-        y = (posicao[0] - fac[linhaMediana[0] - 1]) / fi[linhaMediana[0]]
-        let valor1 = (y * intervalo) + media[linhaMediana[0]]
-        z = (posicao[1] - fac[linhaMediana[1] - 1]) / fi[linhaMediana[1]]
-        let valor2 = (z * intervalo) + media[linhaMediana[1]]
-
-        mediana.push(valor1, valor2)
+        if(!(linhaMediana > inicio && linhaMediana <= fac[i])){//inicio = 16
+            count++   
+            inicio = fac[i]
+        } 
     }
+    facAnterior = fac[count - 1]
+
+    if (facAnterior === undefined) facAnterior = 0
+    let mediana = arrEsq[count] + ((((total / 2) - facAnterior) / fi[count]) * intervalo)
     return mediana
 };
 
+function calculateSeparatrizContinua(total, arr, fac, fi, intervalo){
+    let result = {}, inicio = 0
+    if (separatrizes.value === 'Quartil') {
+        result.posicao = (total / 100) * (quartilOptions.value * 25) 
+        result.separatrizValue = (quartilOptions.value * 25) + '%'
+    } else if (separatrizes.value === 'Quintil') {
+        result.posicao = (total / 100) * (quintilOptions.value * 20) 
+        result.separatrizValue = (quintilOptions.value * 20) + '%'
+    } else if (separatrizes.value === 'Decil') {
+        result.posicao = (total / 100) * (decilOptions.value * 10) 
+        result.separatrizValue = (decilOptions.value * 10) + '%'
+    } else if (separatrizes.value === 'Porcentil') {
+        result.posicao = (total / 100) * (porcentilOptions.value * 1) 
+        result.separatrizValue = (porcentilOptions.value * 1) + '%'
+    } else {
+        result.separatriz = 'Não escolhida'
+        return result.separatriz
+    }
+    for(let i = 0; i <= fac.length - 1; i++){
+        if(result.posicao > inicio && result.posicao <= fac[i]){
+            if(i === 0){
+                result.facAnterior = 0
+                result.valorInicio = arr[0]
+                result.valorFi = fi[0]
+            }else {
+                result.facAnterior = fac[i - 1]
+                result.valorInicio = arr[i]
+                result.valorFi = fi[i]
+            }
+            inicio = fac[i]
+        }
+    };
+
+    let gg = (result.valorInicio + (((result.posicao - result.facAnterior) / result.valorFi) * intervalo))
+    result.separatriz = gg.toFixed(2)
+    return result.separatriz
+}

@@ -1,5 +1,6 @@
 //Função que insere os dados na tabela 1
 function createTable(obj, total,fac) {
+    table.style.display = 'block';
     let count = 0
     let totalFacPercent = 0;
     for (let i in obj) {
@@ -26,6 +27,7 @@ function createTable(obj, total,fac) {
 };
 
 function createTableContinua(arr, intervalo, linhas, arr2,total,fac) {
+    table.style.display = 'block';
     arr.sort(function (a, b) {
         return a - b;
     });
@@ -35,7 +37,7 @@ function createTableContinua(arr, intervalo, linhas, arr2,total,fac) {
     for (let i = 0; i < linhas; i++) {
         let row = table.insertRow();
         let cell = row.insertCell();
-        let text = document.createTextNode(`${x} --| ${x + intervalo}`);
+        let text = document.createTextNode(`${x} |-- ${x + intervalo}`);
         cell.appendChild(text)
 
         let count = 0
@@ -69,6 +71,7 @@ function createTableContinua(arr, intervalo, linhas, arr2,total,fac) {
 };
 
 function createTable2(media, moda, mediana, total){
+    table2.style.display = 'block';
     let row = table2.insertRow();
     let cellMedia = row.insertCell();
     let textMedia = document.createTextNode(media);
@@ -83,3 +86,17 @@ function createTable2(media, moda, mediana, total){
     let textTotal = document.createTextNode(total);
     cellTotal.appendChild(textTotal);
 };
+
+function createTable3(desvio, coeficiente, separatriz){
+    table3.style.display = 'block';
+    let row = table3.insertRow();
+    let cellDesvio = row.insertCell();
+    let textDesvio = document.createTextNode(desvio);
+    cellDesvio.appendChild(textDesvio);
+    let cellVariacao = row.insertCell();
+    let textVariacao = document.createTextNode(coeficiente);
+    cellVariacao.appendChild(textVariacao);
+    let cellMedidaSeparatriz = row.insertCell();
+    let textMedidaSeparatriz = document.createTextNode(separatriz);
+    cellMedidaSeparatriz.appendChild(textMedidaSeparatriz);
+}
