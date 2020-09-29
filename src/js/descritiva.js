@@ -64,7 +64,7 @@ function calcular() {
 
             inputedOptions.colors = createHexCodeArray(inputedOptions.countedFi);
 
-            inputedOptions.moda = calculateModa(inputedOptions.noRepeats, inputedOptions.countedFi);
+            inputedOptions.moda = calculateModa(inputedOptions.countedElements);
 
             inputedOptions.desvioPadrao = 'Não possui desvio';
 
