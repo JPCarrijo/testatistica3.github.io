@@ -95,7 +95,7 @@ function calcular() {
         if (qltOrdinal.checked) {
             inputedOptions.media = 'Não possui média';
 
-            inputedOptions.moda = calculateModa(inputedOptions.noRepeats, inputedOptions.countedFiOrdinal);
+            inputedOptions.moda = calculateModa(inputedOptions.countedOrdinal);
             
             inputedOptions.mediana = calculateMediana(inputedOptions.totalInputs, inputedOptions.facOrdinal, inputedOptions.countedOrdinal);
 
